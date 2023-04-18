@@ -3,10 +3,17 @@ import java.util.*;
 
 public class NimRunner{
 
-//run game returns boolean
+    /*
+
+run game returns boolean
 
 
-//get X move --> int
-//get y move --> int
+get X move --> int
+get y move --> int
+display method
 
+pretend x is player 1
+
+
+*/
 }
