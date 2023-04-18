@@ -10,7 +10,7 @@ run game returns boolean
 
 get X move --> int
 get y move --> int
-display method
+display method (state of game)
 
 pretend x is player 1
 
