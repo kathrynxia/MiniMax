@@ -5,27 +5,56 @@ public class NimRunner{
 
   //will pass in a Node, not necesrry though
 
-  public int getX(Node root){
-    return -1;
-  }
+  // public int getX(Node root){
+  //   return -1;
+  // }
 
-  public int getY(Node root){
-    return 1;
-  }
+  // public int getY(Node root){
+  //   return 1;
+  // }
 
-  public static boolean minimax(int numStones, boolean myTurn){
-    if ((n == 0) && (myTurn == true)){
-      return true;
+  public static int minimax(int numStones, boolean myTurn){
+    if ((numStones <= 4)){
+      if (myTurn){
+        return 1;
+      }
+      else{
+        return -1;
+      }
     }
 
-    else if ((n == 1) && (myTurn == false)){
-      return false;
-    }
 
     else{
-      return (miniMax());//snooped the internet, should return a multiple of 4, 2, 1
-    }
 
+      ArrayList<Integer> myList = new ArrayList<Integer>();//make array list of three options, return the maximum or minimum based on whose turn
+
+      for (int i = 1; i <= 3; i ++){ 
+            
+            myList.add(minimax(numStones - i, !(myTurn)));//save all three values, and depending on whether its myturn or your turn
+
+      }
+
+      if (myTurn){
+        return Collections.min(myList);
+      }
+
+      else{
+
+         return Collections.max(myList);
+
+      }
+
+
+    //   int count = 0;
+
+    // for (int i = 0; i < numStones; i +=3){
+    //   count = i;
+    // }
+
+    // return (miniMax(numStones-));//snooped the internet, should return a multiple of 4, 2, 1
+
+
+  }
 
   }
 
