@@ -9,6 +9,8 @@ Well, it was a class assignment, so I had no choice. Just kidding! I wanted to c
 ### What is Nim? 
 Nim is a two-player game, in which players alternate turns. It’s a zero-sum game, meaning that one player’s benefit is the other player's loss. This means that there can only be one winner, and every move a player makes is intended to benefit themselves and disadvantage the other. There are no ties. 
 
+This code assumes the other player will maximize the chances of them winning. So basically, my code is playing a game against itself, if that makes sense. This makes it so that each turn is consisted of each player making the best possible choice. 
+
 #### Simple Nim: 
 You have one pile of pieces of any number. Each player can take 1 to 3 pieces. The player that takes the last piece loses, whether they take the last piece individually or the last piece as part of the entire group of pieces remaining. 
 
