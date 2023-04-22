@@ -107,6 +107,10 @@ public class NimRunner {
   public static int bestMove(int numStones, boolean myTurn) {
     for (int i = 1; i <= 3; i++) {
 
+      if ((numStones - i) < 0){
+        continue;
+      }
+
       // if((numStones-i) < 0){
       //   continue;
       // }
@@ -119,6 +123,8 @@ public class NimRunner {
           return i;
         }
       }
+
+
     }
 
     return 1;
