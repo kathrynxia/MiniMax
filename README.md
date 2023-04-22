@@ -2,6 +2,10 @@
 
 ## Background and motivation. 
 
+### Motivation: why did I create this code?
+Well, it was a class assignment, so I had no choice. Just kidding! I wanted to challenge myself, as I haven’t done much recursion practice in the past year, and the last game I coded was over two years ago on JavaScript. I don’t think I’ve coded a game in Java before! I wanted to give this my all. 
+
+
 ### What is Nim? 
 Nim is a two-player game, in which players alternate turns. It’s a zero-sum game, meaning that one player’s benefit is the other player's loss. This means that there can only be one winner, and every move a player makes is intended to benefit themselves and disadvantage the other. There are no ties. 
 
