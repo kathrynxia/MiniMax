@@ -39,6 +39,7 @@ public class NimRunner {
 
 
       display(numStones, myTurn);
+      System.out.println("takes " + bestMove(numStones, myTurn));
 
       numStones = numStones - bestMove(numStones, myTurn);
 
@@ -73,11 +74,11 @@ public class NimRunner {
 
       ArrayList<Integer> myList = new ArrayList<Integer>(); //make array list of three options, return the maximum or minimum based on whose turn
 
-      for (int i = 1; i <= 3; i++) {
+      for (int i = 3; i >= 1; i++) {
 
-        // if ((numStones - i) < 0){
-        //   continue;
-        // }
+        if ((numStones - i) < 0){
+        continue;
+        }
 
         if (myTurn) {
           if (minimax(numStones - i, !(myTurn)) == 1); //save all three values, and depending on whether its myturn or your turn
@@ -114,20 +115,21 @@ public class NimRunner {
       // if((numStones-i) < 0){
       //   continue;
       // }
-      if (myTurn) {
-        if (minimax(numStones - i, !myTurn) == 1) {
-          return i;
-        }
-      } else {
+      //if (myTurn) {
         if (minimax(numStones - i, !myTurn) == -1) {
           return i;
-        }
-      }
+      //  }
+      } 
+      // else {
+      //   if (minimax(numStones - i, !myTurn) == 1) {
+      //     return i;
+      //   }
+      // }
 
 
     }
 
-    return 1;
+    return -1;
     /*
 
     return number of pieces you want to take
@@ -150,6 +152,7 @@ works for maximizing player, to change just look for -1
     for (int i = 0; i < numStones; i++) {
       System.out.println(" * ");
     }
+
   }
   //public static void
 
