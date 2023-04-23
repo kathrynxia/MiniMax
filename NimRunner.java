@@ -58,12 +58,12 @@ public class NimRunner {
 
   public static int minimax(int numStones, boolean myTurn) {
     if (numStones == 0) {
-      if (myTurn == false) {
-              // System.out.println("should end");
-        return 1;
-      } else {
+      if (!myTurn) {
               // System.out.println("should end");
         return -1;
+      } else {
+              // System.out.println("should end");
+        return 1;
       }
     }
     //change minimax parameter, arraylist of multiple piles
@@ -74,18 +74,24 @@ public class NimRunner {
 
       ArrayList<Integer> myList = new ArrayList<Integer>(); //make array list of three options, return the maximum or minimum based on whose turn
 
-      for (int i = 3; i >= 1; i++) {
+      for (int i = 3; i >= 1; i--) {
 
         if ((numStones - i) < 0){
         continue;
         }
 
         if (myTurn) {
-          if (minimax(numStones - i, (myTurn)) == -1); //save all three values, and depending on whether its myturn or your turn
-          break;
+          if (minimax(numStones - i, !(myTurn)) == -1){ //save all three values, and depending on whether its myturn or your turn
+          return minimax(numStones - i, !(myTurn));
+          //return 1;
+          //break;
+          }
         } else {
-          if (minimax(numStones - i, (myTurn)) == 1); //save all three values, and depending on whether its myturn or your turn
-          break;
+          if (minimax(numStones - i, !(myTurn)) == 1){ //save all three values, and depending on whether its myturn or your turn
+          return minimax(numStones - i, !(myTurn));
+          //return -1;
+          //break;
+          }
         }
       }
 
@@ -178,3 +184,4 @@ pretend x is player 1
 
 */
 }
+
