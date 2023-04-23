@@ -14,7 +14,7 @@ public class NimRunner {
   //   return 1;
   // }
 
-  public static void runGame(int numStones) {
+  public static void runGame(List<Integer> numStones) {
     boolean myTurn = true;
 
     while (numStones > 0) {
@@ -39,7 +39,7 @@ public class NimRunner {
 
 
       display(numStones, myTurn);
-      System.out.println("takes " + bestMove(numStones, myTurn));
+      System.out.println("takes " + bestMove(numStones, myTurn) + "\n");
 
       numStones = numStones - bestMove(numStones, myTurn);
 
@@ -72,7 +72,7 @@ public class NimRunner {
     else {
       int count = 1;
 
-      ArrayList<Integer> myList = new ArrayList<Integer>(); //make array list of three options, return the maximum or minimum based on whose turn
+      //ArrayList<Integer> myList = new ArrayList<Integer>(); //make array list of three options, return the maximum or minimum based on whose turn
 
       for (int i = 3; i >= 1; i--) {
 
@@ -81,15 +81,17 @@ public class NimRunner {
         }
 
         if (myTurn) {
-          if (minimax(numStones - i, !(myTurn)) == -1){ //save all three values, and depending on whether its myturn or your turn
-          return minimax(numStones - i, !(myTurn));
-          //return 1;
+          if (minimax(numStones - i, !(myTurn)) == 1){ //save all three values, and depending on whether its myturn or your turn
+          //if the opposite move is would be bad for me if i were in that posuition
+          //return minimax(numStones - i, (myTurn));
+          return 1;
           //break;
           }
         } else {
           if (minimax(numStones - i, !(myTurn)) == 1){ //save all three values, and depending on whether its myturn or your turn
-          return minimax(numStones - i, !(myTurn));
-          //return -1;
+          //if the opposite move would be bad for my opponent
+          //return minimax(numStones - i, !(myTurn));
+          return -1;
           //break;
           }
         }
@@ -112,7 +114,7 @@ public class NimRunner {
   }
 
   public static int bestMove(int numStones, boolean myTurn) {
-    for (int i = 1; i <= 3; i++) {
+    for (int i = 3; i >= 1; i--) {
 
       if ((numStones - i) < 0){
         continue;
@@ -148,15 +150,18 @@ works for maximizing player, to change just look for -1
 
   }
 
-  public static void display(int numStones, boolean myTurn) {
+  public static void display(List<Integer> numStones, boolean myTurn) {
     if (myTurn) {
       System.out.println("Player 1's turn");
     } else {
       System.out.println("Player 2's turn");
     }
 
-    for (int i = 0; i < numStones; i++) {
-      System.out.println(" * ");
+    for (int i = 0; i < numStones.size(); i++) {
+      for (int j = 0; j < numStones.get(i).size(); j++){
+      System.out.print("* ");
+      }
+      System.out.println();
     }
 
   }
