@@ -60,10 +60,10 @@ public class NimRunner {
     if (numStones == 0) {
       if (myTurn == false) {
               // System.out.println("should end");
-        return -1;
+        return 1;
       } else {
               // System.out.println("should end");
-        return 1;
+        return -1;
       }
     }
     //change minimax parameter, arraylist of multiple piles
@@ -81,10 +81,10 @@ public class NimRunner {
         }
 
         if (myTurn) {
-          if (minimax(numStones - i, !(myTurn)) == 1); //save all three values, and depending on whether its myturn or your turn
+          if (minimax(numStones - i, (myTurn)) == -1); //save all three values, and depending on whether its myturn or your turn
           break;
         } else {
-          if (minimax(numStones - i, !(myTurn)) == -1); //save all three values, and depending on whether its myturn or your turn
+          if (minimax(numStones - i, (myTurn)) == 1); //save all three values, and depending on whether its myturn or your turn
           break;
         }
       }
