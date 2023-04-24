@@ -1,12 +1,17 @@
+import java.io.*;
+import java.util.*;
+
 public class Tests{
     public static void main (String[] args){
         System.out.println("Testing my NimRunner class.");
         //System.out.println(NimRunner.minimax(6, true));//lost
-        // System.out.println(NimRunner.minimax(5, false));//lost
+        ArrayList<Integer> test = new ArrayList<>(Arrays.asList(0,0,0, 1));
+
+        SimpleNimRunner.runGame(6);//lost
         // System.out.println(NimRunner.minimax(4, false));//lost
 
 
-        NimRunner.runGame(5);//lost
+       // NimRunner.runGame(5);//lost
         //System.out.println(NimRunner.bestMove(5, false));//lost
 
 

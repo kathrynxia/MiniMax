@@ -14,55 +14,39 @@ public class NimRunner {
   //   return 1;
   // }
 
-  public static void runGame(List<Integer> numStones) {
-    boolean myTurn = true;
+  // public static void runGame(ArrayList<Integer> numStones) {
+  //   boolean myTurn = true;
 
-    while (numStones > 0) {
+  //   while (
+  //     !numStones.equals(new ArrayList<Integer>(Arrays.asList(0, 0, 0, 0)))
+  //   ) {
+  //     display(numStones, myTurn);
+  //     System.out.println("takes " + bestMove(numStones, myTurn) + "\n");
 
-         if (numStones  == 0){
+  //     numStones = numStones - bestMove(numStones, myTurn);
 
-          if (myTurn){
+  //     myTurn = !(myTurn);
+  //   }
 
-            System.out.println("Player 1 wins!");
+  //   if (myTurn) {
+  //     System.out.println("Player 1 wins!");
+  //   } else {
+  //     System.out.println("Player 2 wins!");
+  //   }
+  //   // if (myTurn) {
+  //   //   System.out.println("Player 1 wins!");
+  //   // } else {
+  //   //   System.out.println("Player 2 wins!");
+  //   // }
+  // }
 
-          }
-
-          else{
-
-              System.out.println("Player 2 wins!");
-
-          }
-
-          break;
-        
-      }
-
-
-      display(numStones, myTurn);
-      System.out.println("takes " + bestMove(numStones, myTurn) + "\n");
-
-      numStones = numStones - bestMove(numStones, myTurn);
-
-      myTurn = !(myTurn);
-
-  
-
-    }
-
-    // if (myTurn) {
-    //   System.out.println("Player 1 wins!");
-    // } else {
-    //   System.out.println("Player 2 wins!");
-    // }
-  }
-
-  public static int minimax(int numStones, boolean myTurn) {
-    if (numStones == 0) {
+  public static int minimax(List<Integer> numStones, boolean myTurn) {
+    if (numStones.equals(new ArrayList<Integer>(Arrays.asList(0, 0, 0, 0)))) {
       if (!myTurn) {
-              // System.out.println("should end");
+        // System.out.println("should end");
         return -1;
       } else {
-              // System.out.println("should end");
+        // System.out.println("should end");
         return 1;
       }
     }
@@ -70,35 +54,56 @@ public class NimRunner {
     //possible moves, more, based on number in each pile, nested for loop, arraylist of children
 
     else {
-      int count = 1;
-
-      //ArrayList<Integer> myList = new ArrayList<Integer>(); //make array list of three options, return the maximum or minimum based on whose turn
-
-      for (int i = 3; i >= 1; i--) {
-
-        if ((numStones - i) < 0){
-        continue;
-        }
-
-        if (myTurn) {
-          if (minimax(numStones - i, !(myTurn)) == 1){ //save all three values, and depending on whether its myturn or your turn
-          //if the opposite move is would be bad for me if i were in that posuition
-          //return minimax(numStones - i, (myTurn));
-          return 1;
-          //break;
+      for (int i = 0; i < numStones.size(); i++) {
+        for (int j = 0; j < numStones.get(i); j++) { //maybe flip to decrement
+          if ((numStones.get(i) - j) < 0) {
+            continue;
           }
-        } else {
-          if (minimax(numStones - i, !(myTurn)) == 1){ //save all three values, and depending on whether its myturn or your turn
-          //if the opposite move would be bad for my opponent
-          //return minimax(numStones - i, !(myTurn));
-          return -1;
-          //break;
+
+          if (myTurn) {
+            //if ((((new ArrayList<Integer>(numStones)).set(i, numStones.get(i) - j)), myTurn) == 1)
+              
+
+              
+              //minimax(((new ArrayList<Integer>(numStones))).set(i, numStones.get(i) - j)), myTurn) == 1)
+             return 1; //make copy of arraylist? with subtracted #?
+          }
+          //(minimax( numStones.clone().set(i, numStones.get(i) - j), myTurn   ) == 1)
+
+          else if (
+            //minimax((ArrayList)numStones.clone().set(i, numStones.get(i) - j), myTurn) ==
+            //-1
+          ) {
+            return 1;
+          } else {
+            return -1;
           }
         }
       }
+      // for (int i = 3; i >= 1; i--) {
 
-      return minimax(numStones - 1, !(myTurn));
+      //   if ((numStones - i) < 0){
+      //   continue;
+      //   }
 
+      //   if (myTurn) {
+      //     if (minimax(numStones - i, !(myTurn)) == 1){ //save all three values, and depending on whether its myturn or your turn
+      //     //if the opposite move is would be bad for me if i were in that posuition
+      //     //return minimax(numStones - i, (myTurn));
+      //     return 1;
+      //     //break;
+      //     }
+      //   } else {
+      //     if (minimax(numStones - i, !(myTurn)) == 1){ //save all three values, and depending on whether its myturn or your turn
+      //     //if the opposite move would be bad for my opponent
+      //     //return minimax(numStones - i, !(myTurn));
+      //     return -1;
+      //     //break;
+      //     }
+      //   }
+      // }
+
+      //return minimax(numStones - 1, !(myTurn));
 
       //   int count = 0;
 
@@ -113,32 +118,31 @@ public class NimRunner {
 
   }
 
-  public static int bestMove(int numStones, boolean myTurn) {
-    for (int i = 3; i >= 1; i--) {
+  // public static int bestMove(int numStones, boolean myTurn) {
+  //   for (int i = 3; i >= 1; i--) {
 
-      if ((numStones - i) < 0){
-        continue;
-      }
+  //     if ((numStones - i) < 0){
+  //       continue;
+  //     }
 
-      // if((numStones-i) < 0){
-      //   continue;
-      // }
-      //if (myTurn) {
-        if (minimax(numStones - i, !myTurn) == -1) {
-          return i;
-      //  }
-      } 
-      // else {
-      //   if (minimax(numStones - i, !myTurn) == 1) {
-      //     return i;
-      //   }
-      // }
+  //     // if((numStones-i) < 0){
+  //     //   continue;
+  //     // }
+  //     //if (myTurn) {
+  //       if (minimax(numStones - i, !myTurn) == -1) {
+  //         return i;
+  //     //  }
+  //     }
+  //     // else {
+  //     //   if (minimax(numStones - i, !myTurn) == 1) {
+  //     //     return i;
+  //     //   }
+  //     // }
 
+  //   }
 
-    }
-
-    return -1;
-    /*
+  //   return -1;
+  /*
 
     return number of pieces you want to take
 
@@ -148,7 +152,7 @@ public class NimRunner {
 works for maximizing player, to change just look for -1
     */
 
-  }
+  //}
 
   public static void display(List<Integer> numStones, boolean myTurn) {
     if (myTurn) {
@@ -158,12 +162,12 @@ works for maximizing player, to change just look for -1
     }
 
     for (int i = 0; i < numStones.size(); i++) {
-      for (int j = 0; j < numStones.get(i).size(); j++){
-      System.out.print("* ");
+      for (int j = 0; j < numStones.get(i); j++) {
+        System.out.print("* ");
       }
       System.out.println();
+      System.out.println();
     }
-
   }
   //public static void
 
@@ -189,4 +193,3 @@ pretend x is player 1
 
 */
 }
-
