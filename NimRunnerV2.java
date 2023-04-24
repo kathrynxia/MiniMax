@@ -2,19 +2,77 @@ import java.util.*;
 
 public class NimRunnerV2{
 
-    public static runGame(int numPieces){
-
+    public static void runGame(int numPieces) {
     boolean myTurn = true;
-        while (numPieces > 0){
 
-        }
+    while (numPieces >= 0) {
+
+         if (numPieces  == 0){
+
+          if (myTurn){
+
+            System.out.println("Player 1 wins!");
+
+          }
+
+          else{
+
+              System.out.println("Player 2 wins!");
+
+          }
+
+          break;
+        
+      }
+
+
+      display(numPieces, myTurn);
+      System.out.println("takes " + bestMove(numPieces, myTurn) + "\n");
+
+      numPieces = numPieces - bestMove(numPieces, myTurn);
+
+      myTurn = !(myTurn);
+
+  
+
     }
+    }
+
+    // public static int getPlayerXMove(numPieces){//arraylist
+
+    //USE A DO WHILE LOOP
+
+    //     return bestMove(int numPieces, boolean true);
+
+    // }
+
+    // public static getPlayerYMove(numPieces){
+
+    //     while ((pile) >= )
+
+    //     Scanner key = new Scanner(System.in);
+
+    //     System.out.println("choose a pile");
+
+    //     int pile = key.nextInt();
+
+    //     System.out.println("how many do you want to take");
+
+    //     int taken = key.nextInt();
+
+
+
+
+
+        
+
+    // }
 
 
 
     public static int minimax(int numPieces, boolean myTurn){
 
-        if (state == 0){
+        if (numPieces == 0){
             if (myTurn){
                 return 1; 
             }
@@ -58,11 +116,24 @@ public class NimRunnerV2{
                 }
             }
             else {
-                if (minimax(state - i, myTurn) == 1){
+                if (minimax(numPieces - i, myTurn) == 1){
                     return i;
                 }
             }
         }
         return 1;
     }
+
+    public static void display(int numPieces, boolean myTurn) {
+    if (myTurn) {
+      System.out.println("Player 1's turn");
+    } else {
+      System.out.println("Player 2's turn");
+    }
+
+    for (int i = 0; i < numPieces; i++) {
+      System.out.println(" * ");
+    }
+
+  }
 }
