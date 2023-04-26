@@ -5,33 +5,33 @@ public class RegNimRunner {
   public static void runGame() {
     boolean myTurn = true;
 
-    ArrayList<Integer> board = new ArrayList<>(generateRandomBoard());
+    ArrayList<Integer> board = new ArrayList<>(generateRandomBoard());//generates a random board
 
-    ArrayList<Integer> baseCase = new ArrayList<>();
+    ArrayList<Integer> baseCase = new ArrayList<>();//when all piles of this random board = 0
 
     System.out.println("starting");
 
-    System.out.println(board);
+    System.out.println(board);//print starting board
 
     for (int k = 0; k < board.size(); k++) {
       baseCase.add(0);
     }
 
-    while (!board.equals(baseCase)) {
+    while (!board.equals(baseCase)) {//while there are still pieces left
       if (myTurn) {
-        board = getPlayerXMove(board);
+        board = getPlayerXMove(board);//player X goes first
       } else {
-        board = getPlayerYMove(board);
+        board = getPlayerYMove(board);//player y second
       }
 
-      display(board, myTurn);
+      display(board, myTurn);//dispay after move is bade
 
-      myTurn = !(myTurn);
+      myTurn = !(myTurn);//switch turns
 
       System.out.println();
     }
 
-    if (myTurn) {
+    if (myTurn) {//winning conditions
       System.out.println("Player X wins!");
     } else {
       System.out.println("Player Y wins!");
@@ -39,22 +39,18 @@ public class RegNimRunner {
   }
 
   public static ArrayList<Integer> getPlayerXMove(ArrayList<Integer> piles) { //arraylist
-    return bestMove(piles, true);
+    return bestMove(piles, true);//player X is machine, will calculate best possible move using minimax
   }
 
-  //generate a random board
 
-  public static ArrayList<Integer> generateRandomBoard() {
+  public static ArrayList<Integer> generateRandomBoard() {//generates a random "board" with random piless
     ArrayList<Integer> board = new ArrayList<>();
 
-    for (int i = 0; i < (int) (Math.random() * 10) + 1; i++) {
-      board.add((int) (Math.random() * 11));
+    for (int i = 0; i < (int) (Math.random() * 10) + 1; i++) {//generates a board between with 1 to 10 piles
+      board.add((int) (Math.random() * 11));//random number of pieces, 0 to 10 per pile
     }
 
     return board;
-    //generate random # 1-10 for piles
-    //generate random numbers 0-10 for pieces in piles
-    //return the arrayList
 
   }
 
@@ -63,14 +59,13 @@ public class RegNimRunner {
 
     int taken = 0;
 
-    ArrayList<Integer> possibleState = new ArrayList<>(piles);
+    ArrayList<Integer> possibleState = new ArrayList<>(piles);//copy of  current state
 
-    //do{
 
     boolean validMove = false;
 
     while (!validMove) {
-      Scanner key = new Scanner(System.in);
+      Scanner key = new Scanner(System.in);//getting user input for the pile they want to take frum and the number of pirces they want to take
 
       System.out.println("choose a pile");
 
@@ -80,22 +75,22 @@ public class RegNimRunner {
 
       taken = key.nextInt();
 
-      if ((pile >= 0) && (pile < piles.size())) {
-        if ((piles.get(pile) - taken) >= 0) {
-          if (taken != 0) {
+      if ((pile >= 0) && (pile < piles.size())) {//valid pile
+        if ((piles.get(pile) - taken) >= 0) {//valid number of pieces taken
+          if (taken != 0) {//can't choose to take no pieces
             validMove = true;
           }
         }
       }
     }
 
-    possibleState.set(pile, piles.get(pile) - taken);
+    possibleState.set(pile, piles.get(pile) - taken);//change the state
 
-    return possibleState;
+    return possibleState;//return the new states
   }
 
   public static int minimax(ArrayList<Integer> piles, boolean myTurn) {
-    ArrayList<Integer> baseCase = new ArrayList<>();
+    ArrayList<Integer> baseCase = new ArrayList<>();//base case, all 0 pieces in each pile
 
     for (int k = 0; k < piles.size(); k++) {
       baseCase.add(0);
@@ -108,27 +103,25 @@ public class RegNimRunner {
         return -1;
       }
     } else {
-      for (int i = 0; i < piles.size(); i++) {
+      for (int i = 0; i < piles.size(); i++) {//going through all possible moves
         for (int j = 0; j <= piles.get(i) - 1; j++) {
-          ArrayList<Integer> state = new ArrayList<Integer>(piles);
+          ArrayList<Integer> state = new ArrayList<Integer>(piles);//make copy of piles
 
-          state.set(i, j);
+          state.set(i, j);//possible state
 
           if (myTurn) {
-            if (minimax(state, !myTurn) == 1) {
+            if (minimax(state, !myTurn) == 1) {//if its a good move, return 1 for player x
               return 1;
             }
-            //return -1;
           } else {
-            if (minimax(state, !myTurn) == -1) {
+            if (minimax(state, !myTurn) == -1) {//if its a good bove, return -1 for player y
               return -1;
             }
-            //return 1;
 
           }
         }
       }
-
+      //no "max" or "mini" found, all moves are not beneficial
       if (myTurn) {
         return -1;
       } else {
@@ -140,29 +133,30 @@ public class RegNimRunner {
   public static ArrayList<Integer> bestMove(
     ArrayList<Integer> piles,
     boolean myTurn
-  ) {
+  ) {//finds the best possible move
     for (int i = 0; i < piles.size(); i++) {
-      if (piles.get(i) == 0) {
+      if (piles.get(i) == 0) {//can't take pieces from an empty pile
         continue;
       }
 
       for (int j = 1; j <= piles.get(i); j++) { //number of pieces left in pile
         ArrayList<Integer> state = new ArrayList<Integer>(piles);
-        state.set(i, piles.get(i) - j);
+        state.set(i, piles.get(i) - j);//teting all possible moves
 
-        //System.out.println(state);
 
         if (myTurn) {
-          if (minimax(state, !myTurn) == 1) {
+          if (minimax(state, !myTurn) == 1) {//good move for X , return the arraylist after pieces have been removed
             return state;
           }
         } else {
-          if (minimax(state, !myTurn) == -1) {
+          if (minimax(state, !myTurn) == -1) {//good move for Y, return the arraylist after pieces
             return state;
           }
         }
       }
     }
+
+    //if no beneficial moves have been found, find the first pile where there are NOT 0 pieces, and just take one piece from that pile
 
     ArrayList<Integer> state = new ArrayList<Integer>(piles);
 
@@ -179,7 +173,7 @@ public class RegNimRunner {
     return state;
   }
 
-  public static void display(ArrayList<Integer> numPieces, boolean myTurn) {
+  public static void display(ArrayList<Integer> numPieces, boolean myTurn) {//for aethetic purposes
     if (myTurn) {
       System.out.println("Player X's turn");
     } else {
@@ -190,11 +184,11 @@ public class RegNimRunner {
 
     System.out.print("Nums: ");
 
-    for (int i = 0; i < numPieces.size(); i++) {
+    for (int i = 0; i < numPieces.size(); i++) {//displaying number of pieces in each pile
       System.out.print(" " + numPieces.get(i) + " ");
     }
 
-    System.out.print(" \nPile: ");
+    System.out.print(" \nPile: ");//displaying which number pile it is, Ex. pile, #0, pile #1, etc
 
     for (int i = 0; i < numPieces.size(); i++) {
       System.out.print(" " + i + " ");
