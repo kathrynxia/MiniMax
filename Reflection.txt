@@ -9,11 +9,15 @@ While if there is an advantage/opening for winning, the algorithm will certainly
 
 
 
-3. Nim is known as a mis`ere game, meaning that the goal is to avoid taking the last piece. Say we changed the rules so that the player who takes the last piece wins instead of losing. How would you change your code to give the best move for this AntiNim game? Be as specific as possible, citing file names and line numbers.
+3. Nim is known as a mis`ere game, meaning that the goal is to avoid taking the last piece.
+Say we changed the rules so that the player who takes the last piece wins instead of losing.
+How would you change your code to give the best move for this AntiNim game? Be as
+specific as possible, citing file names and line numbers.
 
-I would change, first of all, the base case. I would swat the values, for example, if the ArrayList contained only 0s in RegNimRunner.java in the minimax function on lines 96-101, if myTurn would be true it would return -1, and if false it would return 1. Then, I would try to make sure the rest of the code tried to select the best move that would ensure they would take the last piece. For example, if there was one pile left, they would take the whole pile, and if there was one piece left, they would take it. 
+I would change, first of all, the base case. I would swat the values, for example, if the ArrayList contained only 0s in RegNimRunner.java in the minimax function on lines 96-101, if myTurn would be true it would return -1, and if false it would return 1. Then, I would try to make sure the rest of the code tried to select the best move that would ensure they would take the last piece. For example, if there was one pile left, they would take the whole pile, and if there was one piece left, they would take it. I would then change the code on lines 109-118 with nothing, I would keep it the same. In my testing, I found that it successfully won at reverse Nim. However, I would have to alter the display function and some print statements to print the correct winner.
 
 
-4.  Give one example of a non-Nim game you expect your algorithm would NOT work well on. Explain why.
+4.  Give one example of a non-Nim game you expect your algorithm would NOT work well
+on. Explain why.
 
 One example of a game that my algorithm would not work well for is games where draws are possible. According to this algorithm, the recursion relies on the fact that it is a zero-sum game with only one winner. If draws were possible, such as with chess, the algorithm would not know how to handle the tie. Another reason this algorithm would not work well for chess is that chess has a much more complicated game map than nim. The branching factor for chess would be enormous, with 16 pieces, each of them capable of moving in different directions, orientations, and amounts. The branching factor already would be over a hundred, and as the game tree expanded, it would grow exponentially to have millions of possibilities. Testing each possible move would not be efficient, in fact, with my broken laptop, it would crash while testing out the number of possibilities. Since my algorithm tests every possibility, the algorithm would not be an efficient choice. 
