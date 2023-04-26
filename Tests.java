@@ -4,20 +4,26 @@ import java.util.*;
 public class Tests{
     public static void main (String[] args){
         System.out.println("Testing my NimRunner class.");
-        //System.out.println(NimRunner.minimax(6, true));//lost
-        ArrayList<Integer> test = new ArrayList<>(Arrays.asList(0,0,0, 1));
 
-        SimpleNimRunner.runGame(6);//lost
-        // System.out.println(NimRunner.minimax(4, false));//lost
+        //What would be an edge case?
+  
+        ArrayList<Integer> test = new ArrayList<>(Arrays.asList(1, 3, 5, 7));
+        ArrayList<Integer> test2 = new ArrayList<>(Arrays.asList(3, 5, 7));
+        ArrayList<Integer> test3 = new ArrayList<>(Arrays.asList(2, 2, 2));
+ 
+        
+        System.out.println(RegNimRunner.minimax(test, true));//loses
+        System.out.println(RegNimRunner.bestMove(test, true));
 
 
-       // NimRunner.runGame(5);//lost
-        //System.out.println(NimRunner.bestMove(5, false));//lost
+        System.out.println(RegNimRunner.minimax(test2, true));//wins
+        System.out.println(RegNimRunner.bestMove(test2, true));
 
+        System.out.println(RegNimRunner.minimax(test3, true));//wins
+        System.out.println(RegNimRunner.bestMove(test3, true));
 
-        //  System.out.println(NimRunner.bestMove(3, true));
-        //  NimRunner.display(4, true);
-        //System.out.println(NimRunner.minimax(1, true));
+        RegNimRunner.runGame();
+        
 
 
     }
