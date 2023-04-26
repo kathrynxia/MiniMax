@@ -23,10 +23,9 @@ You have one pile of pieces of any number. Each player can take 1 to 3 pieces. T
 
 #### Regular Nim: 
 Same concept as above! Except for some key changes:
-instead of one pile, there are any number of piles.
+1. instead of one pile, there are any number of piles.
 
-
-instead of only being able to take 1-3 pieces, you can take any number of pieces from one pile each turn. Meaning you could take 1 piece, or the entire pile in one turn. The only thing is, you have to take at least one piece, and however many pieces you take, they all have to be from the same pile. Whoever takes the last remaining piece loses the game. 
+2. Instead of only being able to take 1-3 pieces, you can take any number of pieces from one pile each turn. Meaning you could take 1 piece, or the entire pile in one turn. The only thing is, you have to take at least one piece, and however many pieces you take, they all have to be from the same pile. Whoever takes the last remaining piece loses the game. 
 
 
 ## Usage
