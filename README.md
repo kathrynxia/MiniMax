@@ -7,7 +7,10 @@
 ### Motivation: why did I create this code?
 Well, it was a class assignment, so I had no choice. Just kidding! I wanted to challenge myself, as I haven’t done much recursion practice in the past year, and the last game I coded was over two years ago on JavaScript. I don’t think I’ve coded a game in Java before! I wanted to give this my all. 
 
+### Minimax
+Minimax is an algorithm used on zero-sum games where no draws are possible. It uses recursion to get the best possible move for a player. It starts by looking at the simplest version of a game aka state, and seeing whether that is a beneficial position for the player. It then uses these simple cases to build up to more complex states, using the previous statess to determine whether the next more complex states are favorable for a player. By assigning these different states numbers of 1 or negative one, we can see which states are beneficial for which player. In my case, 1 represented moves that were beneficial for player X, -1 represented moves that were beneficial for player Y. Because of the zero sum nature, the opposite was true: 1 was NOT a benefical move for Player Y, and -1 was NOT a beneficial move for Player X. Recursion is used to test all the possible moves down until there are no moves left to make. Once it gets to the base case, it will then return either 1 or -1, assigning values to calls which will in turn determine the favoribility of other calls. 
 
+Nim is a good test game for this Minimax algorithm because it is zero-sum, has no draws, is two player, and is a relatively simple game to implement. This simplicity allows the multiple levels of recursion to happen fairly efficiently compared to a more complex game such as chess. 
 
 
 ### What is Nim? 
