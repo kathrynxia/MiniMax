@@ -2,83 +2,125 @@ import java.util.*;
 
 public class RegNimRunner {
 
-//   public static void runGame(int numPieces) {
-//     boolean myTurn = true;
+  public static void runGame() {
+    boolean myTurn = true;
 
-//     while (numPieces >= 0) {
-//       if (numPieces == 0) {
-//         if (myTurn) {
-//           System.out.println("Player 1 wins!");
-//         } else {
-//           System.out.println("Player 2 wins!");
-//         }
+    ArrayList<Integer> board = new ArrayList<>(generateRandomBoard());
 
-//         break;
-//       }
+    ArrayList<Integer> baseCase = new ArrayList<>();
 
-//       display(numPieces, myTurn);
-//       System.out.println("takes " + bestMove(numPieces, myTurn) + "\n");
+    System.out.println("starting");
 
-//       numPieces = numPieces - bestMove(numPieces, myTurn);
+    System.out.println(board);
 
-//       myTurn = !(myTurn);
-//     }
-//   }
+    for (int k = 0; k < board.size(); k++) {
+      baseCase.add(0);
+    }
 
-  // public static int getPlayerXMove(numPieces){//arraylist
+    while (!board.equals(baseCase)) {
+      if (myTurn) {
+        board = getPlayerXMove(board);
+      } else {
+        board = getPlayerYMove(board);
+      }
 
-  //USE A DO WHILE LOOP
+      display(board, myTurn);
 
-  //     return bestMove(int numPieces, boolean true);
+      myTurn = !(myTurn);
 
-  // }
+      System.out.println();
+    }
 
-  // public static getPlayerYMove(numPieces){
+    if (myTurn) {
+      System.out.println("Player X wins!");
+    } else {
+      System.out.println("Player Y wins!");
+    }
+  }
 
-  //     while ((pile) >= )
+  public static ArrayList<Integer> getPlayerXMove(ArrayList<Integer> piles) { //arraylist
+    return bestMove(piles, true);
+  }
 
-  //     Scanner key = new Scanner(System.in);
+  //generate a random board
 
-  //     System.out.println("choose a pile");
+  public static ArrayList<Integer> generateRandomBoard() {
+    ArrayList<Integer> board = new ArrayList<>();
 
-  //     int pile = key.nextInt();
+    for (int i = 0; i < (int) (Math.random() * 10) + 1; i++) {
+      board.add((int) (Math.random() * 11));
+    }
 
-  //     System.out.println("how many do you want to take");
+    return board;
+    //generate random # 1-10 for piles
+    //generate random numbers 0-10 for pieces in piles
+    //return the arrayList
 
-  //     int taken = key.nextInt();
+  }
 
-  // }
+  public static ArrayList<Integer> getPlayerYMove(ArrayList<Integer> piles) { //tried making it as robust as possible, pls assume valid input
+    int pile = 0;
 
-  public static int minimax(ArrayList<Integer> numPieces, boolean myTurn) {
-    if (numPieces.equals(Arrays.asList(0, 0, 0, 0))){//check all are 0
+    int taken = 0;
+
+    ArrayList<Integer> possibleState = new ArrayList<>(piles);
+
+    //do{
+
+    boolean validMove = false;
+
+    while (!validMove) {
+      Scanner key = new Scanner(System.in);
+
+      System.out.println("choose a pile");
+
+      pile = key.nextInt();
+
+      System.out.println("how many do you want to take");
+
+      taken = key.nextInt();
+
+      if ((pile >= 0) && (pile < piles.size())) {
+        if ((piles.get(pile) - taken) >= 0) {
+          if (taken != 0) {
+            validMove = true;
+          }
+        }
+      }
+    }
+
+    possibleState.set(pile, piles.get(pile) - taken);
+
+    return possibleState;
+  }
+
+  public static int minimax(ArrayList<Integer> piles, boolean myTurn) {
+    ArrayList<Integer> baseCase = new ArrayList<>();
+
+    for (int k = 0; k < piles.size(); k++) {
+      baseCase.add(0);
+    }
+
+    if (piles.equals(baseCase)) { //check all are 0
       if (myTurn) {
         return 1;
       } else {
         return -1;
       }
     } else {
-      //ArrayList<Integer> listOfScores = new ArrayList<>();
+      for (int i = 0; i < piles.size(); i++) {
+        for (int j = 0; j <= piles.get(i) - 1; j++) {
+          ArrayList<Integer> state = new ArrayList<Integer>(piles);
 
-      for (int i = 0; i < numPieces.size(); i ++){
-        for (int j = 1; j <= numPieces.get(i); j ++){
+          state.set(i, j);
 
-            ArrayList<Integer> possibleTake = new ArrayList<Integer>(numPieces);
-
-            //rename to possibleState
-            
-            possibleTake.set(i, numPieces.get(i) - j);
-
-          if (myTurn){
-            if (minimax(possibleTake, !myTurn) == 1){
-
-              
+          if (myTurn) {
+            if (minimax(state, !myTurn) == 1) {
               return 1;
             }
             //return -1;
-          }
-          else{
-
-            if (minimax(possibleTake, !myTurn) == -1){
+          } else {
+            if (minimax(state, !myTurn) == -1) {
               return -1;
             }
             //return 1;
@@ -87,45 +129,77 @@ public class RegNimRunner {
         }
       }
 
-      if (myTurn){
+      if (myTurn) {
         return -1;
-      }
-
-      else{
+      } else {
         return 1;
       }
     }
-
   }
 
-//   public static int bestMove(int numPieces, boolean myTurn) {
-//     for (int i = 1; i <= 3; i++) {
-//       if ((numPieces - i) < 0) {
-//         continue;
-//       }
+  public static ArrayList<Integer> bestMove(
+    ArrayList<Integer> piles,
+    boolean myTurn
+  ) {
+    for (int i = 0; i < piles.size(); i++) {
+      if (piles.get(i) == 0) {
+        continue;
+      }
 
-//       if (myTurn) {
-//         if (minimax(numPieces - i, !myTurn) == 1) {
-//           return i;
-//         }
-//       } else {
-//         if (minimax(numPieces - i, myTurn) == 1) {
-//           return i;
-//         }
-//       }
-//     }
-//     return 1;
-//   }
+      for (int j = 1; j <= piles.get(i); j++) { //number of pieces left in pile
+        ArrayList<Integer> state = new ArrayList<Integer>(piles);
+        state.set(i, piles.get(i) - j);
 
-//   public static void display(int numPieces, boolean myTurn) {
-//     if (myTurn) {
-//       System.out.println("Player 1's turn");
-//     } else {
-//       System.out.println("Player 2's turn");
-//     }
+        //System.out.println(state);
 
-//     for (int i = 0; i < numPieces; i++) {
-//       System.out.println(" * ");
-//     }
-//   }
+        if (myTurn) {
+          if (minimax(state, !myTurn) == 1) {
+            return state;
+          }
+        } else {
+          if (minimax(state, !myTurn) == -1) {
+            return state;
+          }
+        }
+      }
+    }
+
+    ArrayList<Integer> state = new ArrayList<Integer>(piles);
+
+    int count = 0;
+
+    for (int i = 0; i < piles.size(); i++) {
+      if (piles.get(i) > 0) {
+        count = i;
+        break;
+      }
+    }
+
+    state.set(count, piles.get(count) - 1);
+    return state;
+  }
+
+  public static void display(ArrayList<Integer> numPieces, boolean myTurn) {
+    if (myTurn) {
+      System.out.println("Player X's turn");
+    } else {
+      System.out.println("Player Y's turn");
+    }
+
+    System.out.println();
+
+    System.out.print("Nums: ");
+
+    for (int i = 0; i < numPieces.size(); i++) {
+      System.out.print(" " + numPieces.get(i) + " ");
+    }
+
+    System.out.print(" \nPile: ");
+
+    for (int i = 0; i < numPieces.size(); i++) {
+      System.out.print(" " + i + " ");
+    }
+
+    System.out.println();
+  }
 }
